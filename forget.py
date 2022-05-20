@@ -10,61 +10,7 @@ Syafii  = 100080716718035
 Postingan = 115753054458585
 komentar   = '\n\nhttps://www.facebook.com/' + str(Postingan)
 ##### >>>> IMPORT MODULE
-import requests,bs4,sys,os,random,time,re,json,uuid,subprocess
-from random import randint
-from concurrent.futures import ThreadPoolExecutor as ThreadPool
-from requests.exceptions import ConnectionError
-from concurrent.futures import ThreadPoolExecutor
-from bs4 import BeautifulSoup as par
-from bs4 import BeautifulSoup as parser
-from bs4 import BeautifulSoup
-from datetime import date
-from datetime import datetime
-from urllib.parse import quote
-##### BUAT WARNA >>>> X
-Z = "\x1b[0;90m"     # Hitam
-M = "\x1b[38;5;196m" # Merah
-H = "\x1b[38;5;46m"  # Hijau
-K = "\x1b[38;5;226m" # Kuning
-B = "\x1b[38;5;44m"  # Biru
-U = "\x1b[1;95m"     # Ungu
-I = "\x1b[1;96m"     # Biru Muda
-P = "\x1b[38;5;231m" # Putih
-J = "\x1b[38;5;208m" # Jingga
-A = "\x1b[38;5;248m" # Abu-Abu
-##### BUAT IMPORT YG BELUM INSTALL AHAHHAA
-try:
-	import requests
-except ImportError:
-	print(f"{B} | ")
-	print(f"{P}[*]{M} Module requests belum terinstall")
-	os.system("pip install requests")
-try:
-	import bs4
-except ImportError:
-	print(f"{B} | ")
-	print(f"{P}[*]{M} Module bs4 belum terinstall")
-	os.system("pip install bs4")
-try:
-	import concurrent.futures
-except ImportError:
-	print(f"{B} | ")
-	print(f"{P}[*]{M} Module futures belum terinstall")
-	os.system("pip install futures")
-host = ("https://mbasic.facebook.com")
-B = random.choice([H,U,J,K])
-#### BUAT BANNER
-def banner():
-    war_dom = random.choice([P,K,M,J,U,H])
-    print("""
-___________________________________________________
- ____  __  __ ____  _____  |[•] Version 11
-|  _ \|  \/  | __ )|  ___| |[•] Mhd.Syafii
-| | | | |\/| |  _ \| |_    |[•] 27-22-1998
-| |_| | |  | | |_) |  _|   |[•] Brute Fb
-|____/|_|  |_|____/|_|     |[•] 11-04-2022
-____________________________________________________
- |""")
+import requests,bs4,sys,os,random,time,re,json
 
 
 ###----------[ TIME ]---------- ###
