@@ -632,8 +632,7 @@ class log_hasil(user, pasw):
                          print(f"\r{H}[OK] {user}|{pasw}|{coki}{P}        ",end="")
                          get_info(session,coki)
                          cek_apk(session,coki)
-                       else:
-                       salah+=1
+                       else:salah+=1
                        print(f"\r{M}[!] Kata sandi salah atau sudah diubah          {P}\n")
   def ubah_pw(session,response,link2):
     data,dat,dat2={},{}
