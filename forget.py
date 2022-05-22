@@ -656,7 +656,7 @@ class log_hasil(user, pasw):
             get_info(session,coki)
             cek_apk(session,coki)
           else:
-          print("")
+            print("")
   def get_info(session,coki):
 		get_id = session.get("https://mbasic.facebook.com/profile.php",cookie={"cookies":coki}).text
 		nama = re.findall('\<title\>(.*?)<\/title\>',str(get_id))[0]
