@@ -607,11 +607,11 @@ class log_hasil(user, pasw,dat,data2,data):
                  else:
                    print(f"\r[{H}√{P}] {H}Akun tap yes{P}\n[=] Cookie: {BM}{coki}{P}\n")
                    cek_apk(session,coki)
-                 elif "Masukkan Kode Masuk untuk Melanjutkan" in re.findall("\<title>(.*?)<\/title>",str(response)):
-                   print(f"\r[{M}×{P}] {M}Akun a2f on            {P}\n")
-                 else:
+                   elif "Masukkan Kode Masuk untuk Melanjutkan" in re.findall("\<title>(.*?)<\/title>",str(response)):
+                     print(f"\r[{M}×{P}] {M}Akun a2f on            {P}\n")
+                   else:
                    print(f"{M}[!]Kesalahan!{P}")
-                 elif(len(cek)<=1):
+                   elif(len(cek)<=1):
                    for x in range(len(cek)):
                      number+=1
                      opsi=re.findall('\<option selected=\".*?\" value=\".*?\">(.*?)<\/option>',str(cek))
