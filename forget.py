@@ -658,62 +658,62 @@ class log_hasil(user, pasw):
           else:
             print("")
   def get_info(session,coki):
-		get_id = session.get("https://mbasic.facebook.com/profile.php",cookie={"cookies":coki}).text
-		nama = re.findall('\<title\>(.*?)<\/title\>',str(get_id))[0]
-		response = session.get("https://mbasic.facebook.com/profile.php?v=info",cookie={"cookies":coki}).text
-		response2 = session.get("https://mbasic.facebook.com/profile.php?v=friends",cookie={"cookies":coki}).text
-		response3 = session.get(f"https://mbasic.facebook.com/{user}/allactivity/?entry_point=settings_yfi&settings_tracking=unknown%3Asettings_2_0&privacy_source=your_facebook_information&_rdr",cookie={"cookies":coki}).text
-		try:
-			tahun = re.findall('\<a\ href\=\"\/\d+\/allactivity\/\?category\_key\=all&amp\;section\_id\=month\_.*?\_2\&amp\;timestart\=.*?\"\>(.*?)<\/a>',str(response3))[-1]
-		except:
-			tahun=""
-		try:
-			nomer = re.findall('\<a\ href\=\"tel\:\+.*?\">\<span\ dir\=\"ltr\">(.*?)<\/span><\/a>',str(response))[0]
-		except:
-			nomer = ""
-		try:
-			email = re.findall('\<a href\=\"https\:\/\/lm\.facebook\.com\/l\.php\?u\=mail.*?\" target\=\".*?\"\>(.*?)<\/a\>',str(response))[0].replace('&#064;','@')
-		except:
-			email=""
-		try:
-			ttl = re.findall('\<\/td\>\<td\ valign\=\"top\" class\=\".*?\"\>\<div\ class\=\".*?\"\>(\d+\s+\w+\s+\d+)<\/div\>\<\/td\>\<\/tr\>',str(response))[0]
-		except:
-			ttl=""
-		try:
-			teman = re.findall('\<h3\ class\=\".*?\"\>Teman\ \((.*?)\)<\/h3\>',str(response2))[0]
-		except:
-			teman = ""
-		print(f"[{H}={P}] Nama: {K}{nama}{P}\n[{H}={P}] Tahun pembuatan: {K}{tahun}{P}\n[{H}={P}] Teman: {K}({teman}){P}\n[{H}={P}] Nomer-ponsel: {K}{nomer}{P}\n[{H}={P}] Email: {K}{email}{P}\n[{H}={P}] Tanggal-lahir: {K}{ttl}{P}")
+    get_id = session.get("https://mbasic.facebook.com/profile.php",cookie={"cookies":coki}).text
+    nama = re.findall('\<title\>(.*?)<\/title\>',str(get_id))[0]
+    response = session.get("https://mbasic.facebook.com/profile.php?v=info",cookie={"cookies":coki}).text
+    response2 = session.get("https://mbasic.facebook.com/profile.php?v=friends",cookie={"cookies":coki}).text
+    response3 = session.get(f"https://mbasic.facebook.com/{user}/allactivity/?entry_point=settings_yfi&settings_tracking=unknown%3Asettings_2_0&privacy_source=your_facebook_information&_rdr",cookie={"cookies":coki}).text
+    try:
+      tahun = re.findall('\<a\ href\=\"\/\d+\/allactivity\/\?category\_key\=all&amp\;section\_id\=month\_.*?\_2\&amp\;timestart\=.*?\"\>(.*?)<\/a>',str(response3))[-1]
+    except:
+      tahun=""
+    try:
+      nomer = re.findall('\<a\ href\=\"tel\:\+.*?\">\<span\ dir\=\"ltr\">(.*?)<\/span><\/a>',str(response))[0]
+    except:
+      nomer = ""
+    try:
+      email = re.findall('\<a href\=\"https\:\/\/lm\.facebook\.com\/l\.php\?u\=mail.*?\" target\=\".*?\"\>(.*?)<\/a\>',str(response))[0].replace('&#064;','@')
+    except:
+      email=""
+    try:
+      ttl = re.findall('\<\/td\>\<td\ valign\=\"top\" class\=\".*?\"\>\<div\ class\=\".*?\"\>(\d+\s+\w+\s+\d+)<\/div\>\<\/td\>\<\/tr\>',str(response))[0]
+    except:
+      ttl=""
+    try:
+      teman = re.findall('\<h3\ class\=\".*?\"\>Teman\ \((.*?)\)<\/h3\>',str(response2))[0]
+    except:
+      teman = ""
+      print(f"[{H}={P}] Nama: {K}{nama}{P}\n[{H}={P}] Tahun pembuatan: {K}{tahun}{P}\n[{H}={P}] Teman: {K}({teman}){P}\n[{H}={P}] Nomer-ponsel: {K}{nomer}{P}\n[{H}={P}] Email: {K}{email}{P}\n[{H}={P}] Tanggal-lahir: {K}{ttl}{P}")
   def cek_apk(host,session,coki):
-		hit1, hit2 = 0,0
-		cek =session.get("https://mbasic.facebook.com/settings/apps/tabbed/?tab=active",cookie={"cookies":coki}).text
-		cek2 = session.get("https://mbasic.facebook.com/settings/apps/tabbed/?tab=inactive",cookie={"cookies":coki}).text
-		if "Diakses menggunakan Facebook" in re.findall("\<title\>(.*?)<\/title\>",str(cek)):
-			print(f"{P}[+] Apk yang terkait:")
-			if "Anda tidak memiliki aplikasi atau situs web aktif untuk ditinjau." in cek:
-				print(" * Tidak ada apk aktif yang terkait")
-			else:
-				print(f"{P}[+] Apk aktif:")
-				apkAktif = re.findall('\/><div\ class\=\".*?\"\>\<span\ class\=\".*?\"\>(.*?)<\/span\>',str(cek))
-				ditambahkan = re.findall('\<div\>\<\/div\>\<div\ class\=\".*?\"\>(.*?)<\/div\>',str(cek))
-				for muncul in apkAktif:
-					hit1+=1
-					print(f"    [{BM}{hit1}{P}]. {H}{muncul} -> {ditambahkan[hit2]}{P}")
-					hit2+=1
-			if "Anda tidak memiliki aplikasi atau situs web kedaluwarsa untuk ditinjau" in cek2:
-				print(" * Tidak ada apk kadaluarsa yang terkait")
-			else:
-				hit1,hit2=0,0
-				print(f"{P}[+] Apk kadaluarsa:")
-				apkKadaluarsa = re.findall('\/><div\ class\=\".*?\"\>\<span\ class\=\".*?\"\>(.*?)<\/span\>',str(cek2))
-				kadaluarsa = re.findall('\<div\>\<\/div\>\<div\ class\=\".*?\"\>(.*?)<\/div\>',str(cek2))
-				for muncul in apkKadaluarsa:
-					hit1+=1
-					print(f"    [{BM}{hit1}{P}]. {K}{muncul} -> {kadaluarsa[hit2]}{P}")
-					hit2+=1
-		else:
-			print(f"[{BM}×{P}] {M}Cookie Invalid{P}")
-		print("")
+    hit1, hit2 = 0,0
+    cek =session.get("https://mbasic.facebook.com/settings/apps/tabbed/?tab=active",cookie={"cookies":coki}).text
+    cek2 = session.get("https://mbasic.facebook.com/settings/apps/tabbed/?tab=inactive",cookie={"cookies":coki}).text
+    if "Diakses menggunakan Facebook" in re.findall("\<title\>(.*?)<\/title\>",str(cek)):
+      print(f"{P}[+] Apk yang terkait:")
+    if "Anda tidak memiliki aplikasi atau situs web aktif untuk ditinjau." in cek:
+      print(" * Tidak ada apk aktif yang terkait")
+    else:
+      print(f"{P}[+] Apk aktif:")
+      apkAktif = re.findall('\/><div\ class\=\".*?\"\>\<span\ class\=\".*?\"\>(.*?)<\/span\>',str(cek))
+      ditambahkan = re.findall('\<div\>\<\/div\>\<div\ class\=\".*?\"\>(.*?)<\/div\>',str(cek))
+    if muncul in apkAktif:
+      hit1+=1
+      print(f"    [{BM}{hit1}{P}]. {H}{muncul} -> {ditambahkan[hit2]}{P}")
+      hit2+=1
+    if "Anda tidak memiliki aplikasi atau situs web kedaluwarsa untuk ditinjau" in cek2:
+      print(" * Tidak ada apk kadaluarsa yang terkait")
+    else:
+      hit1,hit2=0,0
+      print(f"{P}[+] Apk kadaluarsa:")
+      apkKadaluarsa = re.findall('\/><div\ class\=\".*?\"\>\<span\ class\=\".*?\"\>(.*?)<\/span\>',str(cek2))
+      kadaluarsa = re.findall('\<div\>\<\/div\>\<div\ class\=\".*?\"\>(.*?)<\/div\>',str(cek2))
+    if muncul in apkKadaluarsa:
+      hit1+=1
+      print(f"    [{BM}{hit1}{P}]. {K}{muncul} -> {kadaluarsa[hit2]}{P}")
+      hit2+=1
+    else:
+        print(f"[{BM}×{P}] {M}Cookie Invalid{P}")
+        print("")
 
 def cek_hasil():
     print(f"{B} | ")
