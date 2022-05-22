@@ -531,7 +531,7 @@ def log_hasil(user, pasw):
         aman+=1
         coki = (";").join([ "%s=%s" % (key, value) for key, value in session.cookies.get_dict().items() ])
     if self.satua==True:print(f"\r{H}[OK] {self.user}|{self.pw}|{coki}{P}        ",end="")
-        print(f"\r{H}[√] Akun Aman{P}\n[{K}={P}] Cookie: {BM}{coki}{P}\n",end="")
+    print(f"\r{H}[√] Akun Aman{P}\n[{K}={P}] Cookie: {BM}{coki}{P}\n",end="")
         self.get_info(session,coki)
         self.cek_apk(session,coki)
     elif "checkpoint" in session.cookies.get_dict():cp+=1
