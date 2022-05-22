@@ -617,13 +617,13 @@ class log_hasil(user, pasw,dat,data2,data):
                      opsi=re.findall('\<option selected=\".*?\" value=\".*?\">(.*?)<\/option>',str(cek))
                      print(f"\r[{number}]. {B}{''.join(opsi)}{P}\n",end="")
                      print("")
-                   elif(len(cek)>=2):
+                 if(len(cek)>=2):
                      for x in range(len(cek)):
                        number+=1
                        opsi=re.findall('\<option value=\".+\">(.+)<\/option>',str(cek[x]))
                        print(f"\r[{number}]. {B}{''.join(opsi)}{P}\n",end="")
                        print("")
-                     else:
+                 else:
                        if "c_user" in session.cookies.get_dict():
                          cp-=1
                          aman+=1
