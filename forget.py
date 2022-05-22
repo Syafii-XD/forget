@@ -659,7 +659,7 @@ def cek_opsi(self):
 		else:
 			salah+=1
 			print(f"\r{M}[!] Kata sandi salah atau sudah diubah          {P}\n")
-	def ubah_pw(self,session,response,link2):
+def ubah_pw(self,session,response,link2):
 		dat,dat2={},{}
 		but=["submit[Yes]","nh","fb_dtsg","jazoest","checkpoint_data"]
 		for x in response("input"):
