@@ -513,7 +513,7 @@ def userset():
     else:print(f"{P}[•] Pilihan salah ");exit()
 
 #####LOGIN HASIL
-class Eksekusi(started):
+class log_hasil(main):
 	
 	def cek_opsi(self):
 		global aman,cpsalah
